@@ -3,14 +3,15 @@
             [reagent.core :as r]
             ))
 
+
+(set! *warn-on-infer* true)
+
 ;; (defonce conn
 ;;   (repl/connect "http://localhost:9000/repl"))
 
 (enable-console-print!)
 
-(println "Hello world!")
-
-(def js-object (clj->js {:foo "foo-value"
+(def js-object ^js/Object (clj->js {:foo "foo-value"
                          :fiz "fiz-value"
                          :baz {:qux "qux-value"}}))
 

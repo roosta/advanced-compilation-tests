@@ -6,6 +6,7 @@
   (b/build "src"
     {:output-to "release/advanced_compilation_tests.js"
      :output-dir "release"
+     :infer-externs true
      :optimizations :advanced
      :verbose true})
   (println "... done. Elapsed" (/ (- (System/nanoTime) start) 1e9) "seconds"))
