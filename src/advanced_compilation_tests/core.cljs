@@ -10,12 +10,23 @@
 
 (println "Hello world!")
 
+(def js-object (clj->js {:foo "foo-value"
+                         :fiz "fiz-value"
+                         :baz {:qux "qux-value"}}))
+
 (defn app
   []
-  [:h2 "heloo"] 
-  )
+  [:div
+   [:h5 (str "(.. js/window -Document -name) -> " (pr-str (.. js/window -Document -name)))]
+   [:h5 (str "(.. js-object -baz -qux) -> " (pr-str (.. js-object -baz -qux)))]
+   [:h5 (str "(.-foo js-object) -> " (pr-str (.-foo js-object)))]
+   [:h5 (str "(set! (.. js-object -baz -qux) \"new-qux-value\") -> " (do 
+                                                                    (set! (.. js-object -baz -qux) "new-qux-value")
+                                                                    (pr-str (.. js-object -baz -qux))))]
+   [:div (pr-str js-object)]
+   ]) 
 
 (defn mount-app []
-  (r/render [app]
-            (. js/document (getElementById "app"))))
+  (r/render [app] (.getElementById js/document "app")))
 
+(mount-app)
